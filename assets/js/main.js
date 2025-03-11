@@ -1,3 +1,4 @@
+// question
 let mesQuestions = [
     "Qui est le père de Thor ?",
     "Quel est le véritable nom de l'Iron Man ?",
@@ -10,7 +11,7 @@ let mesQuestions = [
     "Quel est le nom de l'arme de Thor, qui peut invoquer des éclairs et est aussi un symbole de son pouvoir ?",
     "Comment se nomme la race des êtres cosmiques responsables de la création des Eternals ?"
 ];
-
+// les reponse
 let reponsesCorrectes = [
     "odin", 
     "tony stark", 
@@ -25,20 +26,22 @@ let reponsesCorrectes = [
 ];
 
 
-// Compteur de points
+// Compte des points
 let score = 0;
 
 // qstn reponse test v1.4
 for (let i = 0; i < mesQuestions.length; i++) {
-    let reponse = prompt(mesQuestions[i]);
+    let reponse = prompt(mesQuestions[i]);             // permet dafficher les questions une par une en prompt(affichage style pup) et de rentrer une reponse
 
-    if (reponse.toLowerCase() === reponsesCorrectes[i]) {
-        console.log("Bonne réponse !");
+
+    if (reponse === reponsesCorrectes[i]) {
+        console.log("Bonne réponse !");               //dans cette boucle j'ai demander que a chaque bonne réponse la console affiche bonne reponse ce qui ferait un point en plus
         score++;  
+
     } else {
-        console.log("Mauvaise réponse !");
+        console.log("Mauvaise réponse !");            // fin de boucle mauvaise reponse on ne fait rien a part l'afficher dans la console 
     }
 }
 
 //score final test
-console.log("Ton score est : " + score + " sur " + mesQuestions.length);
+console.log("Ton score est : " + score + " sur " + mesQuestions.length);  // pour voir son score a la fin 
