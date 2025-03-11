@@ -25,9 +25,20 @@ let reponsesCorrectes = [
 ];
 
 
-let mesQuestions = prompt("Qui est le père de Thor ?");
-if (reponsesCorrectes() === reponsesCorrectes[0]) {
-    console.log("bonne reponse !");
-} else {
-    console.log("mauvaise reponse !");
+// Compteur de points
+let score = 0;
+
+// qstn reponse test v1.4
+for (let i = 0; i < mesQuestions.length; i++) {
+    let reponse = prompt(mesQuestions[i]);
+
+    if (reponse.toLowerCase() === reponsesCorrectes[i]) {
+        console.log("Bonne réponse !");
+        score++;  
+    } else {
+        console.log("Mauvaise réponse !");
+    }
 }
+
+//score final test
+console.log("Ton score est : " + score + " sur " + mesQuestions.length);
