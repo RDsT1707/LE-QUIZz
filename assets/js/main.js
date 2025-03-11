@@ -23,3 +23,11 @@ let reponsesCorrectes = [
     "mjolnir", 
     "les celeste"
 ];
+
+
+let mesQuestions = prompt("Qui est le père de Thor ?");
+if (reponsesCorrectes() === reponsesCorrectes[0]) {
+    console.log("bonne reponse !");
+} else {
+    console.log("mauvaise reponse !");
+}
