@@ -10,3 +10,16 @@ let mesQuestions = [
     "Quel est le nom de l'arme de Thor, qui peut invoquer des éclairs et est aussi un symbole de son pouvoir ?",
     "Comment se nomme la race des êtres cosmiques responsables de la création des Eternals ?"
 ];
+
+let reponsesCorrectes = [
+    "odin", 
+    "tony stark", 
+    "captain america civil war", 
+    "bruce banner", 
+    "hydra", 
+    "thanos", 
+    "le bouclier", 
+    "killmonger", 
+    "mjolnir", 
+    "les celeste"
+];
