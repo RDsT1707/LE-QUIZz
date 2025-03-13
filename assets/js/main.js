@@ -28,148 +28,44 @@
 
 
 
-const questions = [
-    {
-        question: "Qui est le père de Thor ?",
-        reponse: [
-            { text: "Odin", correct: true },
-            { text: "Loki", correct: false },
-            { text: "Zeus", correct: false }
-        ]
-    },
-    {
-        question: "Quel est le véritable nom d'Iron Man ?",
-        reponse: [
-            { text: "Tony Stark", correct: true },
-            { text: "Steve Rogers", correct: false },
-            { text: "Bruce Wayne", correct: false }
-        ]
-    },
-    {
-        question: "Dans quel film Spider-Man rencontre-t-il Iron Man pour la première fois ?",
-        reponse: [
-            { text: "Captain America: Civil War", correct: true },
-            { text: "Avengers: Age of Ultron", correct: false },
-            { text: "Spider-Man: Homecoming", correct: false }
-        ]
-    },
-    {
-        question: "Quel est le nom de l'alter ego de Hulk ?",
-        reponse: [
-            { text: "Bruce Banner", correct: true },
-            { text: "Clint Barton", correct: false },
-            { text: "Stephen Strange", correct: false }
-        ]
-    },
-    {
-        question: "Quel est le nom de l'organisation qui veut contrôler le monde dans Captain America: The Winter Soldier ?",
-        reponse: [
-            { text: "HYDRA", correct: true },
-            { text: "S.H.I.E.L.D.", correct: false },
-            { text: "L'Ordre Noir", correct: false }
-        ]
-    },
-    {
-        question: "Qui est le méchant principal dans Avengers: Infinity War ?",
-        reponse: [
-            { text: "Thanos", correct: true },
-            { text: "Ultron", correct: false },
-            { text: "Red Skull", correct: false }
-        ]
-    },
-    {
-        question: "Quel est le nom de l'arme utilisée par Captain America ?",
-        reponse: [
-            { text: "Le bouclier", correct: true },
-            { text: "Mjolnir", correct: false },
-            { text: "L'arc", correct: false }
-        ]
-    },
-    {
-        question: "Qui est l'antagoniste principal dans Black Panther ?",
-        reponse: [
-            { text: "Killmonger", correct: true },
-            { text: "M'Baku", correct: false },
-            { text: "Ulysses Klaue", correct: false }
-        ]
-    },
-    {
-        question: "Quel est le nom de l'arme de Thor, qui peut invoquer des éclairs ?",
-        repnse: [
-            { text: "Mjolnir", correct: true },
-            { text: "Stormbreaker", correct: false },
-            { text: "Gungnir", correct: false }
-        ]
-    },
-    {
-        question: "Comment se nomme la race des êtres cosmiques responsables de la création des Éternels ?",
-        reponse: [
-            { text: "Les Célestes", correct: true },
-            { text: "Les Skrulls", correct: false },
-            { text: "Les Krees", correct: false }
-        ]
-    }
+let questions = [
+    { question: "Qui est le père de Thor ?", reponse: ["Odin", "Loki", "Zeus"], correct: 0 },
+    { question: "Quel est le véritable nom d'Iron Man ?", reponse: ["Tony Stark", "Steve Rogers", "Bruce Wayne"], correct: 0 },
+    { question: "Dans quel film Spider-Man rencontre-t-il Iron Man ?", reponse: ["Captain America: Civil War", "Avengers: Age of Ultron", "Spider-Man: Homecoming"], correct: 0 },
+    { question: "Quel est l'alter ego de Hulk ?", reponse: ["Bruce Banner", "Clint Barton", "Stephen Strange"], correct: 0 },
 ];
 
-const questionElement = document.getElementById("question");
-const answerButtonsElement = document.getElementById("answer-buttons");
-const nextButton = document.getElementById("next-btn");
-const scoreElement = document.getElementById("score");
-
-let currentQuestionIndex = 0;
+let q = 0;
 let score = 0;
+let questionElement = document.getElementById("question");
+let reponseButtonsElement = document.getElementById("reponse-buttons");
+let scoreElement = document.getElementById("score");
 
-function startQuiz() {
-    currentQuestionIndex = 0;
-    score = 0;
-    scoreElement.innerText = score;
-    showQuestion();
-}
+function loadQuestion() {
+    questionElement.innerText = questions[q].question;
+    reponseButtonsElement.innerHTML = ""; // Réinitialise les boutons à chaque question
 
-function showQuestion() {
-    resetState();
-    let currentQuestion = questions[currentQuestionIndex];
-    questionElement.innerText = currentQuestion.question;
-    currentQuestion.answers.forEach(answer => {
-        const button = document.createElement("button");
-        button.innerText = answer.text;
-        button.classList.add("btn");
-        if (answer.correct) {
-            button.dataset.correct = answer.correct;
-        }
-        button.addEventListener("click", selectAnswer);
-        answerButtonsElement.appendChild(button);
-    });
-}
+    let reponses = questions[q].reponse;
+    for (let i = 0; i < reponses.length; i++) {
+        let btn = document.createElement("button");
+        btn.innerText = reponses[i];
+        btn.classList.add("btn");
+        btn.onclick = function () {
+            if (i === questions[q].correct) {
+                score++;
+            }
+            q++; // Passe à la question suivante
 
-function resetState() {
-    nextButton.style.display = "none";
-    while (answerButtonsElement.firstChild) {
-        answerButtonsElement.removeChild(answerButtonsElement.firstChild);
+            // Vérifie si on a encore des questions
+            if (q < questions.length) {
+                loadQuestion(); // Charge la question suivante
+            } else {
+                alert("Quiz fini ! Score : " + score + "/" + questions.length);
+            }
+            scoreElement.innerText = score;
+        };
+        reponseButtonsElement.appendChild(btn);
     }
 }
 
-function selectAnswer(e) {
-    const selectedButton = e.target;
-    const correct = selectedButton.dataset.correct;
-    if (correct) {
-        selectedButton.classList.add("correct");
-        score++;
-        scoreElement.innerText = score;
-    } else {
-        selectedButton.classList.add("wrong");
-    }
-    nextButton.style.display = "block";
-}
-
-nextButton.addEventListener("click", () => {
-    currentQuestionIndex++;
-    if (currentQuestionIndex < questions.length) {
-        showQuestion();
-    } else {
-        alert(`Quiz terminé ! Votre score : ${score}/${questions.length}`);
-        startQuiz();
-    }
-});
-
-startQuiz();
+loadQuestion(); // Appelle cette fonction pour charger la première question
