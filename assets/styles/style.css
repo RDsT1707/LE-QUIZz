@@ -1,17 +1,18 @@
 body {
     font-family: Arial, sans-serif;
-    text-align: center;
     padding: 20px;
+    background-color: #120776c9;
+    color: rgb(255, 255, 255);
 }
 .btn {
-    display: block;
-    margin: 10px auto;
+    margin: 10px 0;
     padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    width: 100%;
+    font-size: 16px;
 }
 .btn:hover {
-    background-color: #0056b3;
+    background-color: #ff0000c2;
+    color: #f4f4f4;
 }
