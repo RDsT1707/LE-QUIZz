@@ -4,6 +4,7 @@ body {
     background-color: #120776c9;
     color: rgb(255, 255, 255);
 }
+
 .btn {
     margin: 10px 0;
     padding: 10px;
@@ -11,8 +12,23 @@ body {
     color: rgb(0, 0, 0);
     width: 100%;
     font-size: 16px;
+    border: none;
+    transition: background 0.3s ease-in-out;
 }
+
 .btn:hover {
     background-color: #ff0000c2;
     color: #f4f4f4;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    text-align: center;
+}
+
+.list-group-item {
+    background-color: transparent;
+    color: white;
+    border: none;
 }

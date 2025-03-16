@@ -26,7 +26,6 @@
 // ];
 
 
-
 let Questions = [
     { question: "Qui est le père de Thor ?", reponse: ["Loki", "Zeus", "Odin"], correct: 2 },
     { question: "Quel est le véritable nom de l'Iron Man ?", reponse: ["Bruce Banner", "Tony Stark", "Steve Rogers"], correct: 1 },
@@ -41,43 +40,39 @@ let Questions = [
 ];
 
 let prenom = prompt("Quel est votre prénom ?");
-document.getElementById("prenom").innerHTML = "Bonjour " + prenom;   //indique le prenom du joueur
+document.getElementById("prenom").innerText = "Bonjour " + prenom;
 
-// let q = 0;
-let question = 0;
+let questionIndex = 0;
 let score = 0;
-let LesQuestions = document.getElementById("question");
+let questionElement = document.getElementById("question");
 let reponseButtons = document.getElementById("reponse-buttons");
-let scoreFinal = document.getElementById("score")
+let scoreFinal = document.getElementById("score");
 
-LesQuestions.innerText = Questions[q].question;
-reponseButtons.innerHTML = "";
-
-let reponses = Questions[q].reponse;        //   indique mon tableaux avec les reponse
-
-for (let i = 0; i < reponses.length; i++) {
-    let btn = document.createElement("button");
-    btn.innerText = reponses[i];
-    btn.classList.add("btn");
-    reponseButtons.appendChild(btn);
-    btn.addEventListener("click", function() {
-        if (i === Questions[q].correct) {   // Si la réponse est correcte, augmenter le score
-            score++; 
-        } q++; 
-        if (q < Questions.length) {  // Si il y a encore des questions, passer à la question suivante
-            LesQuestions.innerText = Questions[q].question;
-            reponseButtons.innerHTML = "";
-            let nextReponses = Questions[q].reponse;
-            for (let i = 0; i < nextReponses.length; i++) {
-                let nextBtn = document.createElement("button");
-                nextBtn.innerText = nextReponses[i];
-                nextBtn.classList.add("btn");
-                reponseButtons.appendChild(nextBtn);
-            }
-        } else {
-            alert("Quiz fini ! Score : " + score + "/" + Questions.length); 
-            scoreFinal.innerText = score;  //le score (a verifier)
-        }
-    });
+function afficherQuestion() {
+    if (questionIndex < Questions.length) {
+        questionElement.innerText = Questions[questionIndex].question;
+        reponseButtons.innerHTML = "";
+        
+        Questions[questionIndex].reponse.forEach((reponse, index) => {
+            let btn = document.createElement("button");
+            btn.innerText = reponse;
+            btn.classList.add("btn");
+            btn.addEventListener("click", () => verifierReponse(index));
+            reponseButtons.appendChild(btn);
+        });
+    } else {
+        questionElement.innerText = "Quiz terminé !";
+        reponseButtons.innerHTML = "";
+        scoreFinal.innerText = `Votre score est : ${score}/${Questions.length}`;
+    }
 }
 
+function verifierReponse(index) {
+    if (index === Questions[questionIndex].correct) {
+        score++;
+    }
+    questionIndex++;
+    afficherQuestion();
+}
+
+afficherQuestion();
